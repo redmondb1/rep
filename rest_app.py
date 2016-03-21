@@ -50,7 +50,7 @@ def not_found(error):
 def create_rep():
     if not request.json:
         abort(400)
-    key = store.create(Rep(title=request.json['title']))
+    key = store.create(Rep(title=request.json.get('title')))
     return redirect('/rep/api/v1.0/reps/%s' % key, code=201)
 
 @app.route('/rep/api/v1.0/reps/<int:key>', methods=['PUT'])
