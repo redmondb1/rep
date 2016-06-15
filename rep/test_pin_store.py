@@ -79,3 +79,18 @@ class PinStoreTest(TestCase):
         key = self.pin_store.create(Pin('key1', 'key2'))
         self.assertEquals(self.pin_store.as_dict()[key]['parent'], 'key1')
         self.assertEquals(self.pin_store.as_dict()[key]['child'], 'key2')
+
+    def test_get_children_str(self):
+        """The get_children method returns a list of pin keys where the parent
+        matches the key argument."""
+        key = self.pin_store.create(Pin('key1', 'key2'))
+        self.assertEquals(self.pin_store.get_children('key1'),
+                          [self.pin_store[key].child])
+
+    def test_get_children_int(self):
+        """The get_children method returns a list of pin keys where the parent
+        matches the key argument."""
+        key = self.pin_store.create(Pin(1, 2))
+        self.assertEquals(self.pin_store.get_children(1),
+                          [self.pin_store[key].child])
+

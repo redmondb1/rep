@@ -42,3 +42,6 @@ class PinStore(collections.MutableMapping):
 
     def as_dict(self):
         return {key: value.as_dict() for key, value in self.__store.iteritems()}
+
+    def get_children(self, parent_key):
+        return [self[key].child for key in self if str(self[key].parent) == str(parent_key)]

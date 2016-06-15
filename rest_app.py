@@ -110,6 +110,10 @@ def update_pin(key):
                 request.json.get(field, getattr(pin_store[key], field)))
     return jsonify(pin_store[key].as_dict())
 
+@app.route('/rep/api/v1.0/children/<int:key>', methods=['GET'])
+def get_children(key):
+    return jsonify({key: store[child].as_dict() for child in pin_store.get_children(key)})
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
